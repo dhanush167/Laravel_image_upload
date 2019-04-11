@@ -31,7 +31,38 @@ go to App foler->Http foler->CrudsController.php
 return view('index',compact('data'))->with('i',(request()->input('page',1)-1)*5);
 
 <h2>
+   
+       public function uploadImage(Request $request)
 
+    {
+        $inserting=Image::create($request->all());
+
+        $image= $request->image;
+
+
+        list($type, $image) = explode(';', $image);
+
+        list(, $image)      = explode(',', $image);
+
+        $image = base64_decode($image);
+
+        $inserting->photo=$image_name= time().'.png';
+
+        $path = public_path('images/'.$image_name);
+
+
+        file_put_contents($path, $image);
+
+        $inserting->save();
+
+        return response()->json(['status'=>true]);
+
+
+
+
+    }
+ 
+</h2>
 
 
 
